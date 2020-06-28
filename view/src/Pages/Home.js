@@ -91,7 +91,11 @@ export default class Home extends Component {
 			<Navigation className="w-100"/>
 			<Container fluid>
 			 		<Row className="justify-content-center text-center">
+			 		  <Col sm={6}className="mx-auto my-5">
 
+				 		<div className="h4">Welcome this is a simple application that utilizes twitter data to access and  analayze mental health of people</div>
+				 		<div>Please input a valid twitter handle or a valid text to process</div>
+				 		</Col>
 			 		</Row>
 			 		<Row className="justify-content-center text-center">
 			 			<Col lg={5} md={6} sm={6} className="mx-5">

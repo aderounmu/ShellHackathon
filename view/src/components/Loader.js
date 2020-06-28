@@ -6,12 +6,14 @@ export default function Loader(){
 	return(
 		<Row className="justify-content-center mx-auto mt-5">
 			<Col sm={6} lg={6} md={6}>
-				<div className="Loader">
+				<div className="Loader mx-auto">
 					<div class="loadingio-spinner-dual-ring-oj24885vggh"><div class="ldio-9si48d024dq">
 					<div></div><div><div></div></div>
 					</div></div>
 				</div>
 				<div className="LoaderText">
+						<div className="h6 text-center">Please give us a moment while we get things ready</div>
+						<div className="text-center">This my state some few minutes</div>
 				</div>
 			</Col>
 		</Row>
