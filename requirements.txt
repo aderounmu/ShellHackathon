@@ -27,7 +27,7 @@ idna==2.10
 idna-ssl==1.1.0
 itsdangerous==1.1.0
 Jinja2==2.11.2
-keras_preprocessing >= 1.1.1 < 1.2
+keras_preprocessing >= 1.1.1 
 kiwisolver==1.2.0
 MarkupSafe==1.1.1
 matplotlib==3.2.2
@@ -49,8 +49,8 @@ scipy==1.5.0
 six==1.15.0
 soupsieve==2.0.1
 tensorflow==2.2.0 
-tensorboard >= 2.2.0 < 2.3.0
-tensorflow_estimator >= 2.2.0 < 2.3.0
+tensorboard >= 2.2.0 
+tensorflow_estimator >= 2.2.0 
 termcolor >= 1.1.0
 twint==2.1.20
 typing==3.7.4.1
