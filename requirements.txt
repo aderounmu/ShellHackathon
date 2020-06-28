@@ -104,8 +104,6 @@ Pygments==2.6.1
 pylint==2.3.1
 pyparsing==2.4.7
 pyquery==1.4.1
-pyrsistent==0.16.0
-pywin32==228
 pywinpty==0.5.7
 PyYAML==5.3.1
 pyzmq==19.0.1
