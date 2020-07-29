@@ -1,5 +1,5 @@
 import React, {useState ,useEffect}from 'react'
-import { Container , Col , Row , Card,Table , Form} from 'react-bootstrap'
+import { Container , Col , Row , Card,Table , Form , Badge} from 'react-bootstrap'
 import { ResponsiveContainer,LineChart,XAxis,YAxis,CartesianGrid,Tooltip,Line,Legend , PieChart , Pie} from'recharts'
 import { Cell, LabelList } from 'recharts'
 import ReactWordcloud from 'react-wordcloud'
@@ -40,7 +40,7 @@ export default function DashboardLayout(props){
 
 	const style ={
 		AverageLabel:{
-			color : props.Average > 0.3 ? '#39a4fa': '#f32151',
+			color : props.Average > 0.5 ? '#39a4fa': '#f32151',
 			top : '50px'
 		}
 	}

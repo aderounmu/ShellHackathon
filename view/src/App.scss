@@ -1,1 +1,12 @@
-@import "~bootstrap/scss/bootstrap"
+@import "~bootstrap/scss/bootstrap";
+
+
+
+.background-container{
+	transform: rotate(180deg);
+	z-index:-6;
+	@include media-breakpoint-up(lg){
+		bottom: -200px
+	}
+}
+

@@ -4,6 +4,8 @@
 import Navigation from '../components/Navigation.js'
 import Loader from '../components/Loader.js'
 import DashboardLayout from '../components/DashboardLayout.js'
+import background from '../components/Wave-10s-1528px.svg'
+
 //import originalData from '../fullsampledata.js'
 //import originalData from '../sampledata2.js'
 //import originalData from '../sampledata.js'
@@ -148,6 +150,7 @@ import DashboardLayout from '../components/DashboardLayout.js'
 	            }
                     
         });
+        dataBydate.sort((a,b)=>a.date-b.date)
 
         this.setState({DataperYear: dataBydate})
         this.setState({ListYears: years})
@@ -408,10 +411,15 @@ dataforWordCloud(){
  				<Navigation className="w-100"/>
  				<Container className="pt-3">
  						{
- 							!Loaded ?  <Row className="pt-3"><Loader/></Row> : this.renderDashboard()
+ 							 !Loaded ?  <Row className="pt-3"><Loader/></Row> : this.renderDashboard()
  						}
  				</Container>
+        { 
+          !Loaded ? <div className="fixed-bottom w-100 background-container"><img src={background} className="background position-absolute w-100"  alt="logo"/></div> : ''
+        }
  			</div>
  		)
  	}
  }
+
+ 

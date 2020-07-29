@@ -4,7 +4,8 @@ import { Container , Col , Row , Form, Card , Modal } from 'react-bootstrap'
 import Navigation from '../components/Navigation.js'
 import Usernameinput from '../components/Usernameinput.js'
 import Textinput from '../components/Textinput.js'
-
+import background from '../components/Wave-10s-1528px.svg'
+import Loader from '../components/Loader.js'
 
 
 
@@ -18,7 +19,9 @@ export default class Home extends Component {
 			Result: {},
 			isResult: false,
 			error: false,
-			error_message: ''
+			error_message: '',
+			isFetching:false,
+			isLoaded:false
 		}
 
 	}
@@ -26,17 +29,40 @@ export default class Home extends Component {
 	getInputValue = (value) => this.setState({inputValue: value})
 	checkChange = (e) => this.setState({isTweet : !this.state.isTweet})
 
+	getResult(){
+		fetch(`/api/tweet/${this.state.inputValue}`,{method: 'GET',headers:{'Content-Type':'application/json'}})
+		.then((response) => response.json())
+		.then((data)=>{
+          this.setState({Result:data.data})
+      	})
+      	.catch((error)=>{
+        let error_message = 'Something Went wrong, Please Try Again'
+          this.setState({isFetching: false})
+          this.setState({error : true})
+          this.setState({error_message})
+          return Promise.reject()
+     	})
+     	.then(()=>{
+			this.setState({isFetching:false})
+			this.setState({isLoaded:true})
+		})
+	}
+
 	onSubmit(e){
 		e.preventDefault();
 		if(this.state.isTweet){
 			this.props.history.push(`/Dashboard/${this.state.inputValue}`)
 		}else{
 
-			fetch(`/api/tweet/${this.state.inputValue}`,{method: 'GET',headers:{'Content-Type':'application/json'}})
-	      	.then((response) => response.json())
-	      	.then((data)=>{
-	          this.setState({Result:data.data})
-	      	})
+			let myPromise = new Promise(resolve=>{
+				this.setState({isLoaded:false})
+				this.setState({isFetching:true})
+				resolve()
+
+			}).then(()=>{
+				this.getResult()			
+			})
+			
 
 		}
 	}
@@ -50,25 +76,33 @@ export default class Home extends Component {
 			this.setState({error_message : this.props.location.state.error })
 		}
 
-
 	}
 
 	render(){
-		let { isTweet, inputValue ,Result} = this.state
+		let { isTweet, inputValue ,Result,isFetching, isLoaded} = this.state
 		let res = ""
 		
-		if(Object.keys(Result).length <= 0){
+		if(!isLoaded && !isFetching){
 			res = ''
-		}else {
-			res = <Card border="light">
+		}else if(isLoaded){
+			res = <Card border="light mt-5">
 				    <Card.Header> Result</Card.Header>
 				    <Card.Body>
-				      <Card.Title>Light Card Title</Card.Title>
+		 		      <Card.Title>{Result[0].text} </Card.Title>
 				      <Card.Text>
-				      {Result[0].text} : {Result[0].value}
+				      This Text is  
+				      <div style={{color:Result[0].value > 0.5 ? '#39a4fa' : '#f32151'}}>
+				      { Result[0].value > 0.5 ? (Result[0].value * 100).toFixed(2) : ((1-Result[0].value)*100).toFixed(2)}
+				      %  { Result[0].value > 0.5 ? 'Non depressive' : 'Depressive'}
+				      </div> 
+				      	
 				      </Card.Text>
 				    </Card.Body>
 				</Card>
+		}else if(isFetching){
+			res = <Row className="pt-3"><Loader/></Row>
+		}else{
+			res = ''
 		}
 			 						
 		return (
@@ -130,7 +164,7 @@ export default class Home extends Component {
     						</Row>
     						<Row>
     							<Col>
-    								<button type="submit">Check</button>
+    								<button className="btn btn-primary" type="submit">Check</button>
     							</Col>
     						</Row>
 			 			</Form>
@@ -138,13 +172,13 @@ export default class Home extends Component {
 			 		</Row>
 			 		<Row className="justify-content-center text-center">
 			 			<div className="Result">
-			 				{
-			 					res
-
-			 				}
+			 				{res}
 			 			</div>
 			 		</Row>
 			</Container>
+			<div className="fixed-bottom w-100 background-container">
+				<img src={background} className="background position-absolute w-100"  alt="logo"/>
+			</div>
 		</div>
 	
 		)
